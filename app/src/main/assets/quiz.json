@@ -1,0 +1,124 @@
+{
+  "status_code": 200,
+  "status": true,
+  "message": "Data retrieved",
+  "data": [
+    {
+      "attachments": {
+        "url": "attachment Url",
+        "name": "attachment Name"
+      },
+      "_id": "1",
+      "text": "Among the following option identify the one which is not a type of learning ?",
+      "questionType": "MCQ",
+      "options": [
+        {
+          "attachments": {
+            "url": "attachment Url",
+            "name": "attachment Name"
+          },
+          "_id": "1",
+          "text": "Supervised learning",
+          "answer": false
+        },
+        {
+          "attachments": {
+            "url": "attachment Url",
+            "name": "attachment Name"
+          },
+          "_id": "2",
+          "text": "Reinforcement learning",
+          "answer": false
+        },
+        {
+          "attachments": {
+            "url": "attachment Url",
+            "name": "attachment Name"
+          },
+          "_id": "3",
+          "text": "Unsupervised learning",
+          "answer": false
+        }
+      ],
+      "order": 1
+    },
+    {
+      "attachments": {
+        "url": "attachment Url",
+        "name": "attachment Name"
+      },
+      "_id": "2",
+      "text": "Which of the following machine learning algorithm is based upon the idea of bagging?",
+      "questionType": "MCQ",
+      "options": [
+        {
+          "attachments": {
+            "url": "attachment Url",
+            "name": "attachment Name"
+          },
+          "_id": "1",
+          "text": "Decision tree",
+          "answer": false
+        },
+        {
+          "attachments": {
+            "url": "attachment Url",
+            "name": "attachment Name"
+          },
+          "_id": "2",
+          "text": "Random-forest",
+          "answer": false
+        },
+        {
+          "attachments": {
+            "url": "attachment Url",
+            "name": "attachment Name"
+          },
+          "_id": "3",
+          "text": "Classification",
+          "answer": false
+        }
+      ],
+      "order": 1
+    },
+    {
+      "attachments": {
+        "url": "attachment Url",
+        "name": "attachment Name"
+      },
+      "_id": "3",
+      "text": "Machine learning is a subset of which of the following ?",
+      "questionType": "MCQ",
+      "options": [
+        {
+          "attachments": {
+            "url": "attachment Url",
+            "name": "attachment Name"
+          },
+          "_id": "1",
+          "text": "Artificial intelligence",
+          "answer": false
+        },
+        {
+          "attachments": {
+            "url": "attachment Url",
+            "name": "attachment Name"
+          },
+          "_id": "2",
+          "text": "Deep learning",
+          "answer": false
+        },
+        {
+          "attachments": {
+            "url": "attachment Url",
+            "name": "attachment Name"
+          },
+          "_id": "3",
+          "text": "Data learning",
+          "answer": false
+        }
+      ],
+      "order": 1
+    }
+  ]
+}

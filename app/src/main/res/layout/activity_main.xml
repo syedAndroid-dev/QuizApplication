@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.MainActivity">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/uiToolbar"
+        android:backgroundTintMode="multiply"
+        android:background="@drawable/appbarbackground"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="#147AFC">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/uiIvBackArrow"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_baseline_arrow_back_24" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/uiTvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Anatomy Intro Assesment"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/uiIvBackArrow"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/uiIvBackArrow"
+                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/uiTvSubTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:layout_constraintTop_toBottomOf="@+id/uiTvTitle"
+                app:layout_constraintStart_toStartOf="@+id/uiTvTitle"
+                app:layout_constraintEnd_toEndOf="@+id/uiTvTitle"
+                android:text="TextView" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/uiRvQuiz"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="#EFEFEF"-->
+<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/uiToolbar"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/uiToolbar"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/uiToolbar"-->
+<!--        tools:listitem="@layout/questionlist" />-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/uiRvQuiz"
+        android:background="#EFEFEF"
+        app:layout_constraintStart_toStartOf="@id/uiToolbar"
+        app:layout_constraintTop_toBottomOf="@id/uiToolbar"
+        app:layout_constraintEnd_toEndOf="@id/uiToolbar"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/questionlist"
+        app:layout_constraintBottom_toTopOf="@id/uiBtSubmitQuiz"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/uiBtSubmitQuiz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="Submit"
+        android:background="#147AFC"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/uiRvQuiz"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
