@@ -4,13 +4,10 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.ViewModel
-import com.example.quizapplication.R
 import com.example.quizapplication.adapter.QuizAdapter
 import com.example.quizapplication.databinding.ActivityMainBinding
-import com.example.quizapplication.model.Data
+import com.example.quizapplication.model.Questions
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
@@ -19,27 +16,25 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
     private val quizAdapter: QuizAdapter by lazy {
-        QuizAdapter(
-            quizList = mutableListOf()
-        )
+        QuizAdapter(quizList = mutableListOf())
     }
-
-    val quizViewModel : MainViewModel by viewModel()
+    var answerList = mutableListOf<Questions>()
+    private val quizViewModel : MainViewModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding
         setContentView(binding.root)
-
         setUpUi()
         setUpObserver()
-        setCounDown()
     }
 
     private fun setUpUi() {
         binding.uiRvQuiz.apply {
             adapter = quizAdapter
         }
-
+        binding.uiBtSubmit.setOnClickListener {
+            onButtonClicked()
+        }
     }
 
     private fun setUpObserver() {
@@ -48,23 +43,25 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setQuizToUi(it: List<Data>?) {
-        it?.let { it1 -> quizAdapter.DisplayQuizToUi(it1) }
+    private fun setQuizToUi(it: List<Questions>?) {
+        it?.let { it1 -> quizAdapter.displayQuizToUi(it1) }
         object :CountDownTimer(30000,1000){
             @SuppressLint("SetTextI18n")
             override fun onTick(time: Long) {
-                binding.uiTvSubTitle.setText("${it?.size} Questions . Quiz Timer ${time/1000}")
-
+                binding.uiTvSubTitle.text = "${it?.size} Questions . Quiz Timer ${time/1000}"
             }
 
             override fun onFinish() {
-                binding.uiTvSubTitle.setText("${it?.size} Questions . Quiz Time Over")
+                binding.uiTvSubTitle.text = "${it?.size} Questions . Quiz Time Over"
             }
 
         }.start()
     }
 
-    private fun setCounDown() {
+    private fun onButtonClicked() {
+   //    quizAdapter.submittedOptions
 
+        Toast.makeText(this,quizAdapter.submittedOptions.toString(),Toast.LENGTH_LONG).show()
     }
+
 }

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginVertical="10dp"
+        android:layout_marginVertical="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,10 +21,5 @@
             android:layout_height="wrap_content"
             android:text="Options" />
 
-<!--        <RadioButton-->
-<!--            android:id="@+id/radioButton2"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="false" />-->
     </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>
