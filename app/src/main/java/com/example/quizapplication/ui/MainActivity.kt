@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //commend
     private fun setQuizToUi(it: List<Questions>?) {
         it?.let { it1 -> questionsAdapter.displayQuizToUi(it1) }
         object :CountDownTimer(30000,1000){
