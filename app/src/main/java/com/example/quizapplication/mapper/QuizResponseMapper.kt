@@ -1,7 +1,10 @@
 package com.example.quizapplication.mapper
 
+import android.util.Log
 import com.example.quizapplication.manager.AssertManager
 import com.example.quizapplication.model.Questions
+import com.example.quizapplication.model.SubmittedOptions
+import com.example.quizapplication.model.SubmittedQuestions
 import com.example.quizapplication.utils.CustomResponse
 import com.example.quizapplication.utils.LocalException
 import com.example.quizapplication.warehouse.Constants.Companion.ERROR_SERVER
@@ -24,4 +27,8 @@ object QuizResponseMapper {
             CustomResponse.Failure(LocalException(ERROR_SERVER))
         }
     }
+
+
+
+
 }

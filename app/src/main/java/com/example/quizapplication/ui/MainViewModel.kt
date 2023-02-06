@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.quizapplication.model.Questions
+import com.example.quizapplication.model.SubmittedOptions
+import com.example.quizapplication.model.SubmittedQuestions
 import com.example.quizapplication.repository.QuizRepository
 import com.example.quizapplication.utils.CustomResponse
 import kotlinx.coroutines.launch
@@ -20,7 +22,7 @@ class MainViewModel(private val repository: QuizRepository):ViewModel() {
     val loader: LiveData<Boolean> = loaderLd
     val quizDataList:LiveData<List<Questions>> = quizDataListLd
 
-    val allQuestionList = arrayListOf<Questions>()
+    val savedQuestionList = arrayListOf<Questions>()
     init{
         getQuiz()
     }
@@ -30,9 +32,9 @@ class MainViewModel(private val repository: QuizRepository):ViewModel() {
             when(val response = repository.quizList()){
                 is CustomResponse.Success ->{
                     response.data?.let { questions->
-                        allQuestionList.addAll(questions)
+                        savedQuestionList.addAll(questions)
                     }
-                    quizDataListLd.value = allQuestionList
+                    quizDataListLd.value = savedQuestionList
                 }
                 is CustomResponse.Failure ->{
                     errorLd.value = response.error.message
@@ -42,12 +44,46 @@ class MainViewModel(private val repository: QuizRepository):ViewModel() {
     }
 
     fun onOptionSelected(questionId : String,optionId: String) {
-        val question = allQuestionList.find { it.question_id == questionId }
+        val question = savedQuestionList.find { it.question_id == questionId }
         if (question != null) {
             question.options?.forEach{ option ->
                 option.isSelected = option.option_id == optionId
             }
         }
+    }
+
+    fun submittedQuestionsMapper(questions: ArrayList<Questions>): List<SubmittedQuestions> {
+
+        return questions.map {questions ->
+            SubmittedQuestions(
+                question = questions.question_name,
+                questionId = questions.question_id,
+                options = questions.options?.map { option->
+                    SubmittedOptions(
+                        optionId = option.option_id ?: "",
+                        optionText = option.text,
+                        isSelected = option.isSelected
+                    )
+                } ?: arrayListOf()
+            )
+        }
+
+
+        /*questions.forEach { question->
+            submittedQuesionsList.forEach { submittedQuestions ->
+                submittedQuestions.questionId = question.question_id
+                submittedQuestions.question = question.question_name
+                question.options?.forEach {options->
+                    submittedQuestions.options?.forEach {submittedOptions->
+                        submittedOptions.optionId = options.option_id.toString()
+                        submittedOptions.optionText = options.text
+                        submittedOptions.isSelected = options.isSelected
+                    }
+                }
+
+            }
+        }*/
+
     }
 
 
