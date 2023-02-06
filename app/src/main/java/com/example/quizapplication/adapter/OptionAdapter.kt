@@ -11,41 +11,32 @@ import com.example.quizapplication.model.Options
 
 class OptionAdapter(
     private val optionList: MutableList<Options>,
-   // private val submittedOptions: MutableList<Options>
-):RecyclerView.Adapter<OptionAdapter.ViewHolder>() {
-
-    private var selectedPosition = -1
+    private val onOptionSelected: (String) -> Unit,
+) : RecyclerView.Adapter<OptionAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.options_list,parent,false)
-        return  ViewHolder(view)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.options_list, parent, false)
+        return ViewHolder(view)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder,position: Int) {
         val optionPosition = optionList[position]
         holder.uiRbOption.text = optionPosition.text
-
-        if(position == selectedPosition){
-            holder.uiRbOption.isChecked = true
-            optionPosition.answer=true
-        }else{
-            holder.uiRbOption.isChecked = false
-            optionPosition.answer=false
-        }
-
-        holder.uiRbOption.setOnClickListener {
-            selectedPosition = position
-            notifyDataSetChanged()
-        }
+        holder.uiRbOption.isChecked = optionPosition.isSelected == true
     }
 
     override fun getItemCount(): Int {
         return optionList.size
     }
 
-    inner class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
+    @SuppressLint("NotifyDataSetChanged")
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val uiRbOption: RadioButton = itemView.findViewById(R.id.uiRbOption)
+        init {
+            uiRbOption.setOnClickListener {
+                onOptionSelected(optionList[adapterPosition].option_id ?: "")
+                notifyDataSetChanged()
+            }
+        }
     }
-
 }

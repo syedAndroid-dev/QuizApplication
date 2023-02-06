@@ -10,9 +10,10 @@ import com.example.quizapplication.R
 import com.example.quizapplication.model.Questions
 
 
-class QuizAdapter(private val quizList: MutableList<Questions>) : RecyclerView.Adapter<QuizAdapter.ViewHolder>() {
-
-    val submittedOptions = quizList
+class QuestionsAdapter(
+    private val quizList: MutableList<Questions>,
+    private val onOptionSelected : (String,String) -> Unit,
+) : RecyclerView.Adapter<QuestionsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -20,13 +21,19 @@ class QuizAdapter(private val quizList: MutableList<Questions>) : RecyclerView.A
         return ViewHolder(layoutInflater)
     }
 
+    @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val quizPosition = quizList[position]
         with(holder) {
-            uiTvQuestionId.text = quizPosition.question_id.toString()
-            uiTvQuestionTitle.text = quizPosition.question_name.toString()
+            uiTvQuestionTitle.text = "${quizPosition.question_id}.${quizPosition.question_name}"
             uiRvQuiz.apply {
-                adapter = OptionAdapter(quizPosition.options?.toMutableList() ?: mutableListOf())
+                adapter = OptionAdapter(
+                    optionList = quizPosition.options?.toMutableList() ?: mutableListOf(),
+                    onOptionSelected = { optionId ->
+                        onOptionSelected(quizPosition.question_id ?: "",optionId)
+                        notifyDataSetChanged()
+                    }
+                )
             }
         }
     }
@@ -36,7 +43,6 @@ class QuizAdapter(private val quizList: MutableList<Questions>) : RecyclerView.A
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val uiTvQuestionId: TextView = itemView.findViewById(R.id.uiTvQuestionId)
         val uiTvQuestionTitle: TextView = itemView.findViewById(R.id.uiTvQuestionTitle)
         val uiRvQuiz: RecyclerView = itemView.findViewById(R.id.uiRvQuizList)
     }

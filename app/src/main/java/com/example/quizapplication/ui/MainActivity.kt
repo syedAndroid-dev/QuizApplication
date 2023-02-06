@@ -1,11 +1,11 @@
 package com.example.quizapplication.ui
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Toast
-import com.example.quizapplication.adapter.QuizAdapter
+import androidx.appcompat.app.AppCompatActivity
+import com.example.quizapplication.adapter.QuestionsAdapter
 import com.example.quizapplication.databinding.ActivityMainBinding
 import com.example.quizapplication.model.Questions
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -15,14 +15,18 @@ class MainActivity : AppCompatActivity() {
     val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
-    private val quizAdapter: QuizAdapter by lazy {
-        QuizAdapter(quizList = mutableListOf())
+    private val questionsAdapter: QuestionsAdapter by lazy {
+        QuestionsAdapter(
+            quizList = mutableListOf(),
+            onOptionSelected = { questionId,optionId ->
+                quizViewModel.onOptionSelected(questionId,optionId)
+            }
+        )
     }
-    var answerList = mutableListOf<Questions>()
+
     private val quizViewModel : MainViewModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding
         setContentView(binding.root)
         setUpUi()
         setUpObserver()
@@ -30,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpUi() {
         binding.uiRvQuiz.apply {
-            adapter = quizAdapter
+            adapter = questionsAdapter
         }
         binding.uiBtSubmit.setOnClickListener {
             onButtonClicked()
@@ -44,11 +48,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setQuizToUi(it: List<Questions>?) {
-        it?.let { it1 -> quizAdapter.displayQuizToUi(it1) }
+        it?.let { it1 -> questionsAdapter.displayQuizToUi(it1) }
         object :CountDownTimer(30000,1000){
             @SuppressLint("SetTextI18n")
             override fun onTick(time: Long) {
-                binding.uiTvSubTitle.text = "${it?.size} Questions . Quiz Timer ${time/1000}"
+                binding.uiTvSubTitle.text = "${it?.size} Questions . Quiz Timer ${time/1000} Sec"
             }
 
             override fun onFinish() {
@@ -59,9 +63,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onButtonClicked() {
-   //    quizAdapter.submittedOptions
-
-        Toast.makeText(this,quizAdapter.submittedOptions.toString(),Toast.LENGTH_LONG).show()
+        val allList = quizViewModel.allQuestionList
+        Toast.makeText(this,allList.toString(),Toast.LENGTH_LONG).show()
     }
 
 }

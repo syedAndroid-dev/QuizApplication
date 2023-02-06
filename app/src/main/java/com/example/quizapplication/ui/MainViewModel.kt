@@ -20,7 +20,7 @@ class MainViewModel(private val repository: QuizRepository):ViewModel() {
     val loader: LiveData<Boolean> = loaderLd
     val quizDataList:LiveData<List<Questions>> = quizDataListLd
 
-    private val allQuestionList = arrayListOf<Questions>()
+    val allQuestionList = arrayListOf<Questions>()
     init{
         getQuiz()
     }
@@ -29,13 +29,24 @@ class MainViewModel(private val repository: QuizRepository):ViewModel() {
         viewModelScope.launch {
             when(val response = repository.quizList()){
                 is CustomResponse.Success ->{
-                    response.data?.let { allQuestionList.addAll(it) }
+                    response.data?.let { questions->
+                        allQuestionList.addAll(questions)
+                    }
                     quizDataListLd.value = allQuestionList
                 }
                 is CustomResponse.Failure ->{
                     errorLd.value = response.error.message
                 }
             }.also { loaderLd.value = false }
+        }
+    }
+
+    fun onOptionSelected(questionId : String,optionId: String) {
+        val question = allQuestionList.find { it.question_id == questionId }
+        if (question != null) {
+            question.options?.forEach{ option ->
+                option.isSelected = option.option_id == optionId
+            }
         }
     }
 
