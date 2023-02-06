@@ -12,7 +12,7 @@ import com.example.quizapplication.repository.QuizRepository
 import com.example.quizapplication.utils.CustomResponse
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val repository: QuizRepository):ViewModel() {
+class QuizViewModel(private val repository: QuizRepository):ViewModel() {
 
     private val quizDataListLd  = MutableLiveData<List<Questions>>()
     private var errorLd = MutableLiveData<String>() //Handle Error From Served

@@ -1,9 +1,8 @@
 package com.example.quizapplication.di.module
 
-import androidx.lifecycle.ViewModel
 import com.example.quizapplication.manager.AssertManager
 import com.example.quizapplication.repository.QuizRepository
-import com.example.quizapplication.ui.MainViewModel
+import com.example.quizapplication.ui.QuizViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -23,7 +22,7 @@ val viewModelModule = module {
     //        QuizViewModel(get())
     //    }
     viewModel{
-        MainViewModel(get())
+        QuizViewModel(get())
     }
 }
 
