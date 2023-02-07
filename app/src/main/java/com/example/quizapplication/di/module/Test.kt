@@ -18,9 +18,7 @@ val repoModule = module {
 }
 
 val viewModelModule = module {
-    //    ViewModel {
-    //        QuizViewModel(get())
-    //    }
+
     viewModel{
         QuizViewModel(get())
     }
